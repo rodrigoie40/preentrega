@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>desafio</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <div id="products"></div>
+
+    <script>
+        fetch('/api/products')
+            .then(response =>response.json())
+            .then (products =>{
+                console.log(products)
+
+                let html= "<table>"
+                for(const product of products){
+                    html +=html `
+                        <tr>
+                            <td>${product.id}</td>
+                            <td>${product.nombre}</td>
+                            <td>${product.description}</td>
+                            <td>${product.precio}</td>
+                            <td data-id="${product.id}" class="add">Add</td>
+                        </tr>
+                            `
+                }
+                html += "</table>"
+                document.getElementById('products').innerHTML= html
+            })
+            .catch(error=>{
+                console.log (error)
+            });
+        
+        function loadEvent(){
+            const btnAdds=document.getElementsByClassName('add')
+            for (const btn of btnAdds){
+                btn.onclick= (e)=>{
+                    const id= e.target.getAttribute('data-id')
+                }
+            }
+        }
+    </script>
+</body>
+</html>
